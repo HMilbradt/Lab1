@@ -13,23 +13,48 @@ class Student
         $this->grades = array();
     }
 
-    function add_email($which, $email)
+    /**
+     * Add an email for this student
+     */
+    function add_email($key, $email)
     {
-        $this->emails[$which] = $email;
+        $this->emails[$key] = $email;
     }
 
-    function add_grade($grade)
+    /**
+     * Add a grade for this student
+     */
+    function add_grade($key, $grade)
     {
-        $this->grades[] = $grade;
+        $this->grades[$key] = $grade;
     }
 
+    /**
+     * Returns the average grade of the student
+     */
+    function average()
+    {
+        $total = 0;
+
+        foreach($this->grades as $grade)
+        {
+            $total += $grade;
+        }
+        return $total / count($this->grades);
+    }
+
+    /**
+     * Returns a string representation of the student
+     */
     function toString()
     {
         $result = $this->first_name . ' ' . $this->surname;
-        $result .= ' ('.$this->average().")\n";
-        foreach($this->emails as $which=>$what)
-            $result .= $which . ': '. $what. "\n";
+        $result .= ' (' . $this->average() . ")\n";
+
+        foreach($this->emails as $key=>$value)
+            $result .= $key . ': ' . $value . "\n";
+
         $result .= "\n";
-        return '<pre>'.$result.'</pre>';
+        return '<pre>' . $result . '</pre>';
     }
 }
